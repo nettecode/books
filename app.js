@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const expHbs = require('express-handlebars');
+const bodyParser = require('body-parser');
 
 const books = [{
   title: 'Harry Potter And The Prisoner Of Azkaban'
@@ -14,6 +15,13 @@ app.engine('hbs', expHbs({
 }));
 app.set('view engine', 'hbs');
 app.set('views', 'views');
+
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.post('/add-book', (req, res, next) => {
+  books.push({ title: req.body.bookTitle });
+  res.redirect('/');
+});
 
 app.use('/', (req, res, next) => {
   res.render('index', {
