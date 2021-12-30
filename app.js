@@ -7,7 +7,11 @@ const books = [{
 }];
 
 const app = express();
-app.engine('hbs', expHbs());
+app.engine('hbs', expHbs({
+  layoutsDir: 'views/layouts/',
+  defaultLayout: 'main-layout',
+  extname: 'hbs'
+}));
 app.set('view engine', 'hbs');
 app.set('views', 'views');
 
